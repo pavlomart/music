@@ -38,7 +38,7 @@ const ModalWindow: React.FC<Props> = ({ setModalOpen }) => {
 
   console.log("body>>>>>", body);
 
-  const key = "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";
+  const key = "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";
   const [response, setResponse] = useState("");
 
   const handleSubmit = async (e) => {
