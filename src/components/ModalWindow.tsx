@@ -7,28 +7,14 @@ interface Props {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const apiKey = process.env.REACT_APP_GPT_API_KEY;
+
 const ModalWindow: React.FC<Props> = ({ setModalOpen }) => {
   const [selectedAnswer, setSelectedAnswer] = useState({
     mood: null,
     weather: null,
     thoughts: null,
   });
-
-  const handleAnswerSelection = (questionIndex: number, answer: string) => {
-    switch (questionIndex) {
-      case 0:
-        setSelectedAnswer({ ...selectedAnswer, mood: answer });
-        break;
-      case 1:
-        setSelectedAnswer({ ...selectedAnswer, weather: answer });
-        break;
-      case 2:
-        setSelectedAnswer({ ...selectedAnswer, thoughts: answer });
-        break;
-      default:
-        break;
-    }
-  };
 
   const body = {
     mood: `My mood for now is ${selectedAnswer.mood}`,
@@ -38,7 +24,7 @@ const ModalWindow: React.FC<Props> = ({ setModalOpen }) => {
 
   console.log("body>>>>>", body);
 
-  const key = "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";
+  const key = apiKey;
   const [response, setResponse] = useState("");
 
   const handleSubmit = async (e) => {
@@ -92,27 +78,195 @@ const ModalWindow: React.FC<Props> = ({ setModalOpen }) => {
         ) : (
           <>
             <div className="flex flex-col gap-8 text-start">
-              {questions.map((question, idx) => {
-                return (
-                  <div key={idx}>
-                    {question.question}
-                    <div className="flex gap-4 mt-1">
-                      {question.answers.map((answer, answerIdx) => (
-                        <div
-                          onClick={() => handleAnswerSelection(idx, answer)}
-                          key={answerIdx}
-                        >
-                          {answer}
-                        </div>
-                      ))}
-                    </div>
+              <div>
+                <span className="text-xl font-bold">
+                  What is your mood for now?
+                </span>
+                <div className="flex gap-4 mt-1">
+                  <div
+                    className={
+                      selectedAnswer.mood === "Happy"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({ ...selectedAnswer, mood: "Happy" })
+                    }
+                  >
+                    Happy
                   </div>
-                );
-              })}
+                  <div
+                    className={
+                      selectedAnswer.mood === "Sad"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({ ...selectedAnswer, mood: "Sad" })
+                    }
+                  >
+                    Sad
+                  </div>
+                  <div
+                    className={
+                      selectedAnswer.mood === "Excited"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({ ...selectedAnswer, mood: "Excited" })
+                    }
+                  >
+                    Excited
+                  </div>
+                  <div
+                    className={
+                      selectedAnswer.mood === "Anxious"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({ ...selectedAnswer, mood: "Anxious" })
+                    }
+                  >
+                    Anxious
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <span className="text-xl font-bold">
+                  What is the weather like now?
+                </span>
+                <div className="flex gap-4 mt-1">
+                  <div
+                    className={
+                      selectedAnswer.weather === "Sunny"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({ ...selectedAnswer, weather: "Sunny" })
+                    }
+                  >
+                    Sunny
+                  </div>
+                  <div
+                    className={
+                      selectedAnswer.weather === "Rainy"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({ ...selectedAnswer, weather: "Rainy" })
+                    }
+                  >
+                    Rainy
+                  </div>
+                  <div
+                    className={
+                      selectedAnswer.weather === "Cloudy"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({
+                        ...selectedAnswer,
+                        weather: "Cloudy",
+                      })
+                    }
+                  >
+                    Cloudy
+                  </div>
+                  <div
+                    className={
+                      selectedAnswer.weather === "Stormy"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({
+                        ...selectedAnswer,
+                        weather: "Stormy",
+                      })
+                    }
+                  >
+                    Stormy
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <span className="text-xl font-bold">
+                  What are your thoughts now?
+                </span>
+                <div className="flex gap-4 mt-1">
+                  <div
+                    className={
+                      selectedAnswer.thoughts === "Analytical"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({
+                        ...selectedAnswer,
+                        thoughts: "Analytical",
+                      })
+                    }
+                  >
+                    Analytical
+                  </div>
+                  <div
+                    className={
+                      selectedAnswer.thoughts === "Creative"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({
+                        ...selectedAnswer,
+                        thoughts: "Creative",
+                      })
+                    }
+                  >
+                    Creative
+                  </div>
+                  <div
+                    className={
+                      selectedAnswer.thoughts === "Empathetic"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({
+                        ...selectedAnswer,
+                        thoughts: "Empathetic",
+                      })
+                    }
+                  >
+                    Empathetic
+                  </div>
+                  <div
+                    className={
+                      selectedAnswer.thoughts === "Curious"
+                        ? "bg-[#3631BB] text-white rounded-md p-1"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSelectedAnswer({
+                        ...selectedAnswer,
+                        thoughts: "Curious",
+                      })
+                    }
+                  >
+                    Curious
+                  </div>
+                </div>
+              </div>
             </div>
             <button
               onClick={handleSubmit}
-              className="p-1 bg-slate-500 rounded-md text-white"
+              className="p-1 bg-[#3631BB] rounded-md text-white"
             >
               Submit
             </button>
