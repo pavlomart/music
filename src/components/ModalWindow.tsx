@@ -7,8 +7,6 @@ interface Props {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const apiKey = process.env.REACT_APP_GPT_API_KEY;
-
 const ModalWindow: React.FC<Props> = ({ setModalOpen }) => {
   const [selectedAnswer, setSelectedAnswer] = useState({
     mood: null,
@@ -16,13 +14,15 @@ const ModalWindow: React.FC<Props> = ({ setModalOpen }) => {
     thoughts: null,
   });
 
+  const [apiKey, setApiKey] = useState("");
+
   const body = {
     mood: `My mood for now is ${selectedAnswer.mood}`,
     weather: `Weather for now is ${selectedAnswer.weather}`,
     thoughts: `My thoughts for now are ${selectedAnswer.thoughts}`,
   };
 
-  console.log("body>>>>>", body);
+  console.log("apiKey>>>>>", apiKey);
 
   const key = apiKey;
   const [response, setResponse] = useState("");
@@ -63,7 +63,7 @@ const ModalWindow: React.FC<Props> = ({ setModalOpen }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white max-w-[320px] max-h-[420px] lg:max-w-[500px] lg:max-h-[500px] p-4 w-full h-full rounded-2xl flex flex-col gap-12 items-center justify-center"
+        className="bg-white max-w-[500px] max-h-[500px] lg:max-w-[500px] lg:max-h-[500px] p-4 w-full h-full rounded-2xl flex flex-col gap-12 items-center justify-center"
       >
         {response ? (
           <>
@@ -264,6 +264,12 @@ const ModalWindow: React.FC<Props> = ({ setModalOpen }) => {
                 </div>
               </div>
             </div>
+            <input
+              onChange={(e) => setApiKey(e.target.value)}
+              type="text"
+              className="border rounded-md p-2"
+              placeholder="api-key..."
+            />
             <button
               onClick={handleSubmit}
               className="p-1 bg-[#3631BB] rounded-md text-white"
